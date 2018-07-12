@@ -2,7 +2,7 @@
 #include <math.h>
 
 //Discretización de las variables
-const int nx=1000;
+const int nx=200;
 double x[nx];
 
 int nt = 600;
@@ -31,7 +31,7 @@ int main()
 
 	for(int i=0; i<nx;i++)
 	{
-		if(i< 800)
+		if(i< 160)
 		{
 			u_inicial[i] = 1.25*(delta_x)*i/L;
 		}	
@@ -68,17 +68,12 @@ int main()
 			u_pasado[l] = u_presente[l];
 			u_presente[l] = u_futuro[l];
 			
+			std::cout << l*delta_x << " " << u_presente[l] << std::endl;
 		}
 		
 	}
 
-	std::cout << "Tiempo=" << " " << t_final << std::endl;
-
-	for(int l=0;l<nx;l++)
-	{
-		std::cout << l*delta_x << " " << u_presente[l] << std::endl;
-	}
-	
+	std::cout << "Tiempo=" << " " << t_final << std::endl;	
 	
 	return 0;
 }
