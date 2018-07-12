@@ -3,7 +3,7 @@
 
 double t_min = 0.0;
 double t_max= 50.0;
-double N = 100;
+double N = 10000;
 double h = (t_max-t_min)/N;
 
 const double gam = 0.45;
@@ -29,25 +29,25 @@ int main()
 	{	
 		double k1,k2,k3,k4 = 0;
 		k1 = h * derivadaR(x,I[i-1],S[i-1],R[i-1]);
-		k2 = h*derivadaR(x+0.5*h,I[i-1],S[i-1],R[i-1]+0.5*k1);
-		k3 = h*derivadaR(x+0.5*h,I[i-1],S[i-1],R[i-1]+0.5*k2);
-		k4 = h*derivadaR(x+h,I[i-1],S[i-1],R[i-1]+k3);
+		k2 = h*derivadaR(x+0.5*h,I[i-1]+0.5*k1,S[i-1]+0.5*k1,R[i-1]+0.5*k1);
+		k3 = h*derivadaR(x+0.5*h,I[i-1]+0.5*k2,S[i-1]+0.5*k2,R[i-1]+0.5*k2);
+		k4 = h*derivadaR(x+h,I[i-1]+k3,S[i-1]+k3,R[i-1]+k3);
 		
 		R[i] = R[i-1] + (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
 		
 		k1,k2,k3,k4 = 0;
 		k1 = h * derivadaI(x,I[i-1],S[i-1],R[i-1]);
-		k2 = h*derivadaI(x+0.5*h,I[i-1]+0.5*k1,S[i-1],R[i-1]);
-		k3 = h*derivadaI(x+0.5*h,I[i-1]+0.5*k2,S[i-1],R[i-1]);
-		k4 = h*derivadaI(x+h, I[i-1]+k3,S[i-1],R[i-1]);
+		k2 = h*derivadaI(x+0.5*h,I[i-1]+0.5*k1,S[i-1]+0.5*k1,R[i-1]+0.5*k1);
+		k3 = h*derivadaI(x+0.5*h,I[i-1]+0.5*k2,S[i-1]+0.5*k2,R[i-1]+0.5*k2);
+		k4 = h*derivadaI(x+h,I[i-1]+k3,S[i-1]+k3,R[i-1]+k3);
 		
 		I[i] = I[i-1] + (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
 
 		k1,k2,k3,k4 = 0;
 		k1 = h * derivadaS(x,I[i-1],S[i-1],R[i-1]);
-		k2 = h*derivadaS(x+0.5*h,I[i-1],S[i-1]+0.5*k1,R[i-1]);
-		k3 = h*derivadaS(x+0.5*h,I[i-1],S[i-1]+0.5*k2,R[i-1]);
-		k4 = h*derivadaS(x+h,I[i-1],S[i-1]+k3,R[i-1]);
+		k2 = h*derivadaS(x+0.5*h,I[i-1]+0.5*k1,S[i-1]+0.5*k1,R[i-1]+0.5*k1);
+		k3 = h*derivadaS(x+0.5*h,I[i-1]+0.5*k2,S[i-1]+0.5*k2,R[i-1]+0.5*k2);
+		k4 = h*derivadaS(x+h,I[i-1]+k3,S[i-1]+k3,R[i-1]+k3);
 		
 		S[i] = S[i-1] + (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
 	
@@ -56,17 +56,7 @@ int main()
 
 	for(int j=0; j<N;j++)
 	{
-		std::cout << j << " " << S[j] << std::endl;
-	}
-	
-	for(int j=0; j<N;j++)
-	{
-		std::cout << j << " " << R[j] << std::endl;
-	}
-
-	for(int j=0; j<N;j++)
-	{
-		std::cout << j << " " << I[j] << std::endl;
+		std::cout << j << " " << S[j] << " " << R[j] << " " << I[j] << std::endl;
 	}
 		
 	return 0;

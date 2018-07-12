@@ -1,11 +1,12 @@
 import numpy as np
 import matplotlib.pyplot as plt
-N = 100
+N = 10000
 datos = np.genfromtxt("datosSIR.dat")
 
 plt.figure()
-plt.plot(datos[:N+1,0],datos[:N+1,1],color="r",label='S')
-plt.plot(datos[N+1:2*N+1,0],datos[N+1:2*N+1,1],color="k",label='R')
-plt.plot(datos[2*N+1:,0],datos[2*N+1:,1],color="b",label='I')
-plt.legend()
+plt.plot(datos[:,0],datos[:,1],color="r",label='S')
+plt.plot(datos[:,0],datos[:,2],color="k",label='R')
+plt.plot(datos[:,0],datos[:,3],color="b",label='I')
+plt.plot(datos[:,0],datos[:,1]+datos[:,2]+datos[:,3],color="g",label='Suma')
+plt.legend(loc="right")
 plt.savefig("graficaSIR.pdf")
